@@ -329,7 +329,7 @@ export default function Home() {
       <div className='flex mt-5 flex-row flex-wrap  justify-around w-full relative z-20'>
         <div className=' flex flex-col  relative '>
           <div className='w-fit centered-absolute-div h-[400px]'>
-            <Spline scene={weatherConditionText} />
+            <Spline scene='https://prod.spline.design/BhN2bFhStVf2Fdr7/scene.splinecode' />
           </div>
           <div className='p-5 pt-[400px] w-full md:w-[510px]'>
             <div className='flex gap-5 items-center h-fit'>
