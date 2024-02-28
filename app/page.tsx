@@ -13,14 +13,13 @@ import {
   BsCloudSunFill,
   BsFillSunFill,
 } from "react-icons/bs";
-
 import { FaAngleDoubleRight, FaAngleDoubleLeft } from "react-icons/fa";
-
 import { TbTemperatureCelsius, TbTemperatureFahrenheit } from "react-icons/tb";
 import { FaTemperatureHalf } from "react-icons/fa6";
 import "./globals.css";
 import axios from "axios";
-const Spline = React.lazy(() => import("@splinetool/react-spline"));
+// const Spline = React.lazy(() => import("@splinetool/react-spline"));
+import Spline from "@splinetool/react-spline";
 
 export default function Home() {
   const [alerts, setAlerts] = useState<any>(null);
@@ -35,7 +34,6 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [LoadSpline, setLoadSpline] = useState(true);
   const [hourCondition, setHourCondition] = useState(false);
-
   const currentHour = useRef<null | HTMLDivElement>(null);
   const leftArrow = useRef<any>(null);
   const rightArrow = useRef<any>(null);
@@ -63,7 +61,7 @@ export default function Home() {
   }
   const weatherCondition = [
     {
-      text: "sunshine",
+      text: "sunshine, sunny",
       link: "https://prod.spline.design/LOf-xnid9dF8WStU/scene.splinecode",
     },
     {
@@ -72,7 +70,7 @@ export default function Home() {
     },
     {
       text: "partly cloudy",
-      link: "https://prod.spline.design/DQB44gAQ6hmeyuFc/scene.splinecode",
+      link: "https://prod.spline.design/1JkRBvytHaTN-yj4/scene.splinecode",
     },
     {
       text: "overcast",
@@ -84,7 +82,7 @@ export default function Home() {
     },
     {
       text: "light rain, moderate rain",
-      link: "https://prod.spline.design/1JkRBvytHaTN-yj4/scene.splinecode",
+      link: "https://prod.spline.design/ruYpN2KGvtFOT0Hn/scene.splinecode",
     },
     {
       text: "heavy rain",
@@ -329,7 +327,7 @@ export default function Home() {
       <div className='flex mt-5 flex-row flex-wrap  justify-around w-full relative z-20'>
         <div className=' flex flex-col  relative '>
           <div className='w-fit centered-absolute-div h-[400px]'>
-            <Spline scene='https://prod.spline.design/BhN2bFhStVf2Fdr7/scene.splinecode' />
+            <Spline scene={weatherConditionText} />
           </div>
           <div className='p-5 pt-[400px] w-full md:w-[510px]'>
             <div className='flex gap-5 items-center h-fit'>
