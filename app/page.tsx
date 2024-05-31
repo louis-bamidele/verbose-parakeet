@@ -20,18 +20,20 @@ import "./globals.css";
 import axios from "axios";
 // const Spline = React.lazy(() => import("@splinetool/react-spline"));
 import Spline from "@splinetool/react-spline";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 export default function Home() {
   const [alerts, setAlerts] = useState<any>(null);
   const [current, setCurrent] = useState<any>(null);
   const [forecast, setForecast] = useState<any>(null);
+  const [splineLoad, setSplineLoad] = useState(true);
   const [boolean, setBoolean] = useState<any>(true);
   const [loading, setLoading] = useState<any>(true);
   const [location, setLocation] = useState<any>(null);
   const [autoComplete, setAutoComplete] = useState<any>(null);
   const [latlng, setLatlng] = useState<any>(null);
-  const [weatherConditionText, setWeatherConditionText] = useState<string>(" ");
-  const [search, setSearch] = useState("");
+  const [weatherConditionText, setWeatherConditionText] = useState<string>("");
+  const [search, setSearch] = useState<any>("");
   const [LoadSpline, setLoadSpline] = useState(true);
   const [hourCondition, setHourCondition] = useState(false);
   const currentHour = useRef<null | HTMLDivElement>(null);
@@ -170,7 +172,13 @@ export default function Home() {
         const condition = data.current.condition.text;
         // const condition = "Light rain";
         let weatherSpline = weatherCondition.filter((item) => {
-          if (item.text.toLowerCase().includes(condition.toLowerCase())) {
+          let searchwords = condition.toLowerCase().split(" ");
+
+          let lowercasetext = item.text.toLowerCase();
+          let isTrue = searchwords.some((word: string) =>
+            lowercasetext.includes(word)
+          );
+          if (isTrue) {
             return item;
           }
         });
@@ -281,7 +289,6 @@ export default function Home() {
   if (loading) {
     return <Loading />;
   }
-  // console.log(currentHour);
 
   return (
     <main className='flex flex-col items-center pb-10 w-full overflow-hidden'>
@@ -326,8 +333,12 @@ export default function Home() {
       </div>
       <div className='flex mt-5 flex-row flex-wrap  justify-around w-full relative z-20'>
         <div className=' flex flex-col  relative '>
+          {splineLoad && <Skeleton height='300px' />}
           <div className='w-fit centered-absolute-div h-[400px]'>
-            <Spline scene={weatherConditionText} />
+            <Spline
+              onLoad={() => setSplineLoad(false)}
+              scene={weatherConditionText}
+            />
           </div>
           <div className='p-5 pt-[400px] w-full md:w-[510px]'>
             <div className='flex gap-5 items-center h-fit'>
